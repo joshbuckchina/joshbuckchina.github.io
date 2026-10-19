@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" role="img" aria-label="Low Water cover">
+  <defs>
+    <linearGradient id="lw" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c2a3d"/>
+      <stop offset="0.55" stop-color="#2c6b78"/>
+      <stop offset="1" stop-color="#d8c7a1"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="900" fill="url(#lw)"/>
+  <g stroke="#f0e9d8" stroke-opacity="0.22" stroke-width="2" fill="none">
+    <path d="M0 470 C 120 455, 220 485, 340 470 S 520 455, 600 470"/>
+    <path d="M0 510 C 120 495, 220 525, 340 510 S 520 495, 600 510"/>
+    <path d="M0 550 C 120 535, 220 565, 340 550 S 520 535, 600 550"/>
+    <path d="M0 590 C 120 575, 220 605, 340 590 S 520 575, 600 590"/>
+  </g>
+  <text x="60" y="120" fill="#a8c6cf" font-family="Helvetica, Arial, sans-serif" font-size="17" letter-spacing="7">A NOVEL</text>
+  <text x="60" y="640" fill="#f7f2e4" font-family="Georgia, 'Times New Roman', serif" font-size="94" font-weight="700">LOW</text>
+  <text x="60" y="740" fill="#f7f2e4" font-family="Georgia, 'Times New Roman', serif" font-size="94" font-weight="700">WATER</text>
+  <rect x="60" y="775" width="70" height="2" fill="#e8d9b8"/>
+  <text x="60" y="835" fill="#e8d9b8" font-family="Helvetica, Arial, sans-serif" font-size="20" letter-spacing="6">JOSH BUCK</text>
+</svg>
