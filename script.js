@@ -1,19 +1,13 @@
-// 页脚年份
-document.getElementById("year").textContent = new Date().getFullYear();
-
-// 滚动到视口时淡入
+// Entrance moments — each section reveals differently on purpose.
 (function () {
-  var items = document.querySelectorAll(".reveal");
+  var targets = document.querySelectorAll(".work, .feature, .about-flow p");
 
-  // 不支持 IntersectionObserver 或用户偏好减少动效时，直接显示
   var reduce =
     window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (!("IntersectionObserver" in window) || reduce) {
-    items.forEach(function (el) {
-      el.classList.add("in");
-    });
+    targets.forEach(function (el) { el.classList.add("in"); });
     return;
   }
 
@@ -26,10 +20,8 @@ document.getElementById("year").textContent = new Date().getFullYear();
         }
       });
     },
-    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
   );
 
-  items.forEach(function (el) {
-    io.observe(el);
-  });
+  targets.forEach(function (el) { io.observe(el); });
 })();
