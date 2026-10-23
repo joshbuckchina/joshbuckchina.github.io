@@ -1,6 +1,6 @@
 // Entrance moments — each section reveals differently on purpose.
 (function () {
-  var targets = document.querySelectorAll(".work, .feature, .about-flow p");
+  var targets = document.querySelectorAll(".work, .feature, .exhibit, .about-flow p");
 
   var reduce =
     window.matchMedia &&
