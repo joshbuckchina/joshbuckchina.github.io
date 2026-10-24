@@ -180,7 +180,7 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
 
 /* ---------- section headings: space above, less below ---------- */
 .section-title {
-  margin: 0 0 clamp(40px, 6vw, 88px);
+  margin: 0 0 18px;
   padding-top: clamp(64px, 8vh, 110px);
   font-family: var(--serif);
   font-weight: 400;
@@ -189,14 +189,27 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
   letter-spacing: -0.03em;
 }
 
+/* ---------- section head + supporting line ---------- */
+.section-head { margin-bottom: clamp(40px, 6vw, 88px); }
+
+.section-desc {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--muted);
+  font-size: var(--step-body);
+}
+
+.series > .section-desc,
+.catalogue .section-title { margin-bottom: clamp(40px, 6vw, 88px); }
+
 /* ---------- works: alternating, never a card grid ---------- */
 .works { padding: 0 var(--margin); }
 
 .work {
   display: grid;
-  align-items: center;
+  align-items: start;
   column-gap: clamp(28px, 5vw, 80px);
-  margin-bottom: clamp(40px, 6vh, 84px);
+  margin-bottom: clamp(32px, 5vh, 64px);
 }
 
 .work-left  { grid-template-columns: 42vw 1fr; }
@@ -218,6 +231,7 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
 
 .work-text {
   max-width: 40rem;
+  padding-top: clamp(20px, 4vh, 56px);
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 600ms var(--ease-out) 140ms,
@@ -269,32 +283,35 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
 /* ---------- series: The Second Signal ---------- */
 .series { padding: 0 var(--margin); }
 
-.exhibit {
+.series-wrap {
   display: grid;
   grid-template-columns: 320px 1fr;
   column-gap: clamp(32px, 5vw, 76px);
-  align-items: center;
+  align-items: start;
 }
 
-.exhibit-art {
+.series-art {
+  position: sticky;
+  top: 40px;
   overflow: hidden;
   border-radius: var(--radius);
   aspect-ratio: 5 / 8;
 }
 
-.exhibit-art img { width: 100%; height: 100%; object-fit: cover; }
+.series-art img { width: 100%; height: 100%; object-fit: cover; }
 
-.exhibit-text {
-  max-width: 38rem;
+.series-body { display: grid; gap: clamp(40px, 6vh, 72px); }
+
+.series-book {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 600ms var(--ease-out) 120ms,
               transform 600ms var(--ease-out) 120ms;
 }
 
-.exhibit.in .exhibit-text { opacity: 1; transform: none; }
+.series-book.in { opacity: 1; transform: none; }
 
-.exhibit-text h3 {
+.series-book h3 {
   margin: 0;
   font-family: var(--serif);
   font-weight: 400;
@@ -303,7 +320,15 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
   letter-spacing: -0.03em;
 }
 
-.exhibit-text .work-kind { margin-top: 8px; }
+.series-book .book-sub { margin: 8px 0 0; }
+
+.series-book .blurb {
+  margin: 18px 0 0;
+  font-size: var(--step-lead);
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 65ch;
+}
 
 .flag {
   display: inline-block;
@@ -478,9 +503,8 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
   .feature { grid-template-columns: 1fr; row-gap: 24px; }
   .feature-art { max-width: 200px; }
 
-  .exhibit { grid-template-columns: 1fr; row-gap: 24px; }
-  .exhibit-art { max-width: 220px; }
-  .exhibit-text { max-width: none; }
+  .series-wrap { grid-template-columns: 1fr; row-gap: 28px; }
+  .series-art { position: static; max-width: 220px; }
 
   .about { grid-template-columns: 1fr; row-gap: 28px; }
 
