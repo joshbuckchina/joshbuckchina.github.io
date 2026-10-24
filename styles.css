@@ -49,6 +49,18 @@ img { display: block; max-width: 100%; }
 /* ---------- browser surfaces ---------- */
 ::selection { background: var(--accent); color: var(--accent-ink); }
 
+/* film grain over the whole page — a printed page, not a screen */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
 ::-webkit-scrollbar { width: 11px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: #3a2434; border-radius: 99px; }
@@ -161,6 +173,56 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
   letter-spacing: -0.04em;
   white-space: nowrap;
   color: var(--ink);
+  animation: signal-split 1400ms var(--ease-out) both;
+}
+
+/* the echo of a signal arriving — the one loud moment on the page */
+.wordmark::after {
+  content: "Josh Buck";
+  position: absolute;
+  inset: 0;
+  color: var(--accent);
+  pointer-events: none;
+  animation: echo-out 1400ms var(--ease-out) both;
+}
+
+@keyframes signal-split {
+  0%   { opacity: 0; filter: blur(7px); text-shadow: 4px 0 rgba(255, 72, 139, 0.5); }
+  30%  { opacity: 1; filter: blur(0); text-shadow: 4px 0 rgba(255, 72, 139, 0.5); }
+  55%  { filter: blur(0); text-shadow: -3px 0 rgba(255, 72, 139, 0.35); }
+  78%  { text-shadow: none; }
+  100% { text-shadow: none; }
+}
+
+@keyframes echo-out {
+  0%   { opacity: 0.9; transform: translateX(9px); }
+  35%  { opacity: 0.45; transform: translateX(-6px); }
+  70%  { opacity: 0.15; transform: translateX(3px); }
+  100% { opacity: 0; transform: none; }
+}
+
+/* a live signal trace running under the wordmark */
+.signal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  bottom: 26px;
+  z-index: 1;
+  height: 2px;
+  pointer-events: none;
+}
+
+.signal-base { stroke: rgba(255, 255, 255, 0.14); stroke-width: 1; }
+.signal-run {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-dasharray: 90 420;
+  animation: signal-travel 7s linear infinite;
+}
+
+@keyframes signal-travel {
+  to { stroke-dashoffset: -510; }
 }
 
 .hero-credit { display: none; }
@@ -168,9 +230,9 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
 /* signature move: the wordmark settles as you scroll */
 @supports (animation-timeline: scroll()) {
   .wordmark {
-    animation: mark-settle linear both;
-    animation-timeline: scroll(root block);
-    animation-range: 0 100vh;
+    animation: signal-split 1400ms var(--ease-out) both, mark-settle linear both;
+    animation-timeline: auto, scroll(root block);
+    animation-range: normal, 0 100vh;
   }
   @keyframes mark-settle {
     from { transform: scale(1); }
@@ -201,6 +263,33 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
 
 .series > .section-desc,
 .catalogue .section-title { margin-bottom: clamp(40px, 6vw, 88px); }
+
+/* ---------- gallery light: a soft spot follows the cursor ---------- */
+.work-art,
+.series-art,
+.feature-art,
+.hero-portrait { position: relative; }
+
+.work-art::after,
+.series-art::after,
+.feature-art::after,
+.hero-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%),
+              rgba(255, 255, 255, 0.11), transparent 62%);
+  opacity: 0;
+  transition: opacity 240ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .work-art:hover::after,
+  .series-art:hover::after,
+  .feature-art:hover::after,
+  .hero-portrait:hover::after { opacity: 1; }
+}
 
 /* ---------- works: alternating, never a card grid ---------- */
 .works { padding: 0 var(--margin); }

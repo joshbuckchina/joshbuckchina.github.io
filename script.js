@@ -25,3 +25,20 @@
 
   targets.forEach(function (el) { io.observe(el); });
 })();
+// gallery light — the spot follows the pointer across a cover
+(function () {
+  if (!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  var els = document.querySelectorAll(".work-art, .series-art, .feature-art, .hero-portrait");
+  els.forEach(function (el) {
+    var raf = null;
+    el.addEventListener("pointermove", function (e) {
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        var r = el.getBoundingClientRect();
+        el.style.setProperty("--mx", (e.clientX - r.left) + "px");
+        el.style.setProperty("--my", (e.clientY - r.top) + "px");
+        raf = null;
+      });
+    });
+  });
+})();
