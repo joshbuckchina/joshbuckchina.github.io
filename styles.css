@@ -50,6 +50,41 @@ img { display: block; max-width: 100%; }
 /* ---------- browser surfaces ---------- */
 ::selection { background: var(--accent); color: var(--accent-ink); }
 
+/* ---------- fog: procedural turbulence, two depths, drifting ---------- */
+.fog {
+  position: fixed;
+  inset: -35%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.13;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.013' numOctaves='4' seed='11'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 -1.7 0.9'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23f)'/%3E%3C/svg%3E");
+  background-size: 1000px 1000px;
+  will-change: transform;
+  animation: fog-drift 150s linear infinite;
+}
+
+.fog::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: inherit;
+  background-size: 620px 620px;
+  opacity: 0.6;
+  will-change: transform;
+  animation: fog-drift-2 95s linear infinite;
+}
+
+@keyframes fog-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(1000px, 500px, 0); }
+}
+
+@keyframes fog-drift-2 {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-620px, 310px, 0); }
+}
+
 /* film grain over the whole page — a printed page, not a screen */
 .grain {
   position: fixed;
@@ -313,6 +348,24 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
 .seal-a { font-size: 13px; letter-spacing: 0.02em; }
 .seal-b { font-size: 13px; letter-spacing: 0.01em; opacity: 0.8; }
 
+/* each cover carries its own mist — the picture surfaces out of it */
+.work-art::before,
+.series-art::before,
+.feature-art::before,
+.hero-portrait::before {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.3;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.013' numOctaves='4' seed='11'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 -1.7 0.9'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23f)'/%3E%3C/svg%3E");
+  background-size: 520px 520px;
+  will-change: transform;
+  animation: fog-drift-2 72s linear infinite;
+}
+
 /* ---------- gallery light: a soft spot follows the cursor ---------- */
 .work-art,
 .series-art,
@@ -326,6 +379,7 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 2;
   pointer-events: none;
   background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%),
               rgba(255, 255, 255, 0.11), transparent 62%);
@@ -338,6 +392,11 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
   .series-art:hover::after,
   .feature-art:hover::after,
   .hero-portrait:hover::after { opacity: 1; }
+
+  .work-art:hover::before,
+  .series-art:hover::before,
+  .feature-art:hover::before,
+  .hero-portrait:hover::before { opacity: 0.12; }
 }
 
 /* ---------- works: alternating, never a card grid ---------- */
