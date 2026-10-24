@@ -12,6 +12,7 @@
 
   --serif: "Gambarino", Georgia, serif;
   --sans: "General Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, Consolas, "Liberation Mono", monospace;
 
   --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
   --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
@@ -263,6 +264,54 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
 
 .series > .section-desc,
 .catalogue .section-title { margin-bottom: clamp(40px, 6vw, 88px); }
+
+/* ---------- dossier: field data and a rubber stamp ---------- */
+.file-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 26px;
+  margin: 18px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.file-meta > div { display: flex; gap: 7px; }
+.file-meta dt { color: var(--muted); }
+.file-meta dd { margin: 0; color: var(--ink); }
+
+.file-meta code {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink);
+  background: none;
+  padding: 0;
+}
+
+.seal {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 4;
+  display: block;
+  padding: 8px 12px 7px;
+  border: 2px solid var(--accent);
+  border-radius: 2px;
+  background: rgba(13, 6, 11, 0.5);
+  color: var(--accent);
+  transform: rotate(-8deg);
+  text-align: center;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.seal-a,
+.seal-b { display: block; font-family: var(--sans); }
+
+.seal-a { font-size: 13px; letter-spacing: 0.02em; }
+.seal-b { font-size: 13px; letter-spacing: 0.01em; opacity: 0.8; }
 
 /* ---------- gallery light: a soft spot follows the cursor ---------- */
 .work-art,
@@ -594,6 +643,8 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
 
   .series-wrap { grid-template-columns: 1fr; row-gap: 28px; }
   .series-art { position: static; max-width: 220px; }
+  .seal { top: 12px; right: 12px; transform: rotate(-6deg); }
+  .file-meta { gap: 6px 18px; }
 
   .about { grid-template-columns: 1fr; row-gap: 28px; }
 
