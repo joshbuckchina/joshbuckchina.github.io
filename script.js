@@ -1,6 +1,6 @@
 // Entrance moments — each section reveals differently on purpose.
 (function () {
-  var targets = document.querySelectorAll(".work, .feature, .series-book, .about-flow p");
+  var targets = document.querySelectorAll(".work, .guide-card, .series-book, .about-flow p");
 
   var reduce =
     window.matchMedia &&
@@ -28,7 +28,7 @@
 // gallery light — the spot follows the pointer across a cover
 (function () {
   if (!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-  var els = document.querySelectorAll(".work-art, .series-art, .feature-art, .hero-portrait");
+  var els = document.querySelectorAll(".work-art, .series-art, .feature-art, .guide-art, .hero-portrait");
   els.forEach(function (el) {
     var raf = null;
     el.addEventListener("pointermove", function (e) {
