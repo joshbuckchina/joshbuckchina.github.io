@@ -495,6 +495,10 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
   align-items: start;
 }
 
+/* the second series is a mirror — same room, light from the other side */
+.series--mirror .series-wrap { grid-template-columns: 1fr 320px; }
+.series--mirror .series-art { order: 2; }
+
 .series-art {
   position: sticky;
   top: 40px;
@@ -725,12 +729,18 @@ a[href^="http"], a[href^="mailto"] { text-underline-offset: 4px; }
   .guide-grid { grid-template-columns: 1fr; max-width: 360px; }
   .guide-art { max-width: 260px; }
 
-  .series-wrap { grid-template-columns: 1fr; row-gap: 28px; }
+  .series-wrap,
+  .series--mirror .series-wrap { grid-template-columns: 1fr; row-gap: 28px; }
+  .series--mirror .series-art { order: 0; }
   .series-art { position: relative; max-width: 220px; }
   .seal { top: 12px; right: 12px; transform: rotate(-6deg); }
   .file-meta { gap: 6px 18px; }
 
-  .about { grid-template-columns: 1fr; row-gap: 28px; }
+  .about {
+    grid-template-columns: 1fr;
+    row-gap: 28px;
+    padding-top: clamp(120px, 16vh, 180px);
+  }
 
   .contact {
     min-height: 0;
